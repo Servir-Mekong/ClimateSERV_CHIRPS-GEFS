@@ -8,6 +8,7 @@ you can be install ClimateServ API using pip:
     pip install climateserv
 
    CHIRPS-GEFS variables:
+   
           Mean
           Variable: CHIRPS_GEFS_precip_mean
           25th percentile
@@ -15,7 +16,8 @@ you can be install ClimateServ API using pip:
           75th percentile
           Variable: CHIRPS_GEFS_precip_75
 
-    Runner.bat 
+   Runner.bat file
+    
     -i <DatasetVariable> 
     -o <Outfile in format .zip> 
     -b <boundary[MinLon,Maxlon,Minlat,Maxlat]>
