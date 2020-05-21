@@ -7,7 +7,7 @@ you can be install ClimateServ API using pip:
 
     pip install climateserv
 
-    CHIRPS-GEFS variables:
+   CHIRPS-GEFS variables:
           Mean
           Variable: CHIRPS_GEFS_precip_mean
           25th percentile
