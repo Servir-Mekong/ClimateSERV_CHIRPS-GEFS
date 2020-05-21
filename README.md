@@ -2,8 +2,9 @@
 Automatic extraction of CHIRPS-GEFS rainfall forecast data using ClimateSERV 
 
 
-This is a package uses the ClimateSERV API for CHIRPS-GEFS extraction(https://climateserv.servirglobal.net/)
-you can be install ClimateServ API using pip:
+This is a package uses the ClimateSERV API for CHIRPS-GEFS extraction(https://climateserv.servirglobal.net/).
+
+You can install ClimateServ API using pip:
 
     pip install climateserv
 
