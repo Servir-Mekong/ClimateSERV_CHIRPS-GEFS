@@ -13,7 +13,7 @@ https://pypi.org/project/climateserv/#modal-close
 
 import climateserv.api
 from datetime import date, timedelta
-import sys, getopt
+import sys, getopt,os
 from pathlib import Path
 
 def main():  
@@ -24,8 +24,8 @@ def main():
     print(' tool for the Regional Flood and Drought Management Center (RFDMC) ')
     print('   Mekong River commision  			      					')	
     print('     Developed by SERVIR-MEKONG                              ')
-    print('     version 1.0                                             ')
-    print('     last updated (05/05/2020)                               ')
+    print('     version 1.1                                             ')
+    print('     last updated (30/03/2020)                               ')
     print('     contact: miguel.barajas@adpc.net                        ')
     print('                                                             ')
     print('                                       Please wait   ...     ')
@@ -34,7 +34,8 @@ def main():
     [MinLon,MaxLon, MinLat, MaxLat] = [93,110,9,35]
     boundary= '93,110,9,25' 
     DatasetType = 'CHIRPS_GEFS_precip_mean'
-    OperationType = 'Download'    
+    OperationType = 'Download' 
+    post_netcdf = 'yes'
    
     # Dates for operational
     EarliestDate = date.today()
@@ -42,7 +43,7 @@ def main():
 
     SeasonalEnsemble = 'ens01'
     SeasonalVariable = 'Precipitation'
-    Outfile = r'D:\CHIRPS_GEFS10days.zip'    
+    Outfile = r'CHIRPS_GEFS10days.zip'    
 
     try:
         opts, args = getopt.getopt(sys.argv[1:], "i:o:b:s:t:")
@@ -77,10 +78,30 @@ def main():
     GeometryCoords = [[MinLon,MaxLat],[MaxLon, MaxLat],
                       [MaxLon, MinLat],[MinLon,MinLat],
                       [MinLon,MaxLat]]
+    
+    OutFolder= os.path.join(os.getcwd(),'CHIRPS-GEFS')
+    if not os.path.exists(OutFolder):    
+        os.mkdir(OutFolder)
+    os.chdir(OutFolder)
+    Output_path = os.path.join(OutFolder,Outfile)
    
     climateserv.api.request_data(DatasetType, OperationType, 
                  EarliestDate, LatestDate,GeometryCoords, 
-                 SeasonalEnsemble, SeasonalVariable,Outfile)
+                 SeasonalEnsemble, SeasonalVariable,Output_path)
+    
+    if post_netcdf == 'yes':
+        print('transforming files to netCDF')
+        # Transform to netcdf    
+        def youCanQuoteMe(item):
+            return "\"" + item + "\""
+        
+        Unzip = 'tar -xf ' + str(Outfile)
+        os.system(Unzip)
+    
+        fullCmd = ' '.join(['for %i in (*.tif) do gdal_translate -of', youCanQuoteMe('netcdf'), '%i %i.nc'])
+        os.system(fullCmd)
+    else:
+        pass
 
 if __name__ == "__main__":
    main()
