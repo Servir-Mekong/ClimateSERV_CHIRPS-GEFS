@@ -35,7 +35,7 @@ def main():
     boundary= '93,110,9,25' 
     DatasetType = 'CHIRPS_GEFS_precip_mean'
     OperationType = 'Download' 
-    post_netcdf = 'yes'
+    
    
     # Dates for operational
     EarliestDate = date.today()
@@ -46,7 +46,7 @@ def main():
     Outfile = r'CHIRPS_GEFS10days.zip'    
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "i:o:b:s:t:")
+        opts, args = getopt.getopt(sys.argv[1:], "i:o:b:s:t:n:")
     except getopt.GetoptError:
         print('ClimateServ_CHIPS-GEFS.py -i <DatasetType> -o <Outfile> -b <boundary> -s <EarliestDate> -t <LatestDate>')
         print('no run')
@@ -70,7 +70,8 @@ def main():
         if opt == "-t" : 
             DateE = arg            
             [year,month,day] = DateE.split('-')   
-            LatestDate = date(int(year.replace("'", "")), int(month), int(day.replace("'", "")))    
+            LatestDate = date(int(year.replace("'", "")), int(month), int(day.replace("'", "")))  
+        if opt == "-n" : post_netcdf = arg 
 
     EarliestDate = EarliestDate.strftime("%m/%d/%Y")
     LatestDate = LatestDate.strftime("%m/%d/%Y")
