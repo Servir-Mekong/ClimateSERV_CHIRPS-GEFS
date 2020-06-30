@@ -8,6 +8,8 @@ You can install ClimateServ API using pip:
 
     pip install climateserv
 
+netcdf tranformation requires gdal available in (https://gdal.org/) 
+
    CHIRPS-GEFS variables:
    
           Mean
@@ -24,6 +26,7 @@ You can install ClimateServ API using pip:
     -b <boundary[MinLon,Maxlon,Minlat,Maxlat]>
     -s <EarliestDate>
     -t <LatestDate>'
+    -n <post_netcdf> 
 
 Examples: 
 
