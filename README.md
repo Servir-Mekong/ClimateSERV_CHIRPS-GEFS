@@ -26,13 +26,13 @@ netcdf tranformation requires gdal available in (https://gdal.org/)
     -b <boundary[MinLon,Maxlon,Minlat,Maxlat]>
     -s <EarliestDate>
     -t <LatestDate>'
-    -n <post_netcdf> 
+    -n <post_netcdf> 'yes' (optional)
 
 Examples: 
 
 Range based
 
-    python bin/ClimateServ_CHIPS-GEFS.py -i CHIRPS_GEFS_precip_mean -o CHIRPS_GEFSrange.zip -b 93,110,9,25 -s '2020-03-10' -t '2020-03-20' 
+    python bin/ClimateServ_CHIPS-GEFS.py -i CHIRPS_GEFS_precip_mean -o CHIRPS_GEFSrange.zip -b 93,110,9,25 -s '2020-03-10' -t '2020-03-20'  -n yes
 
 Operarional CHIRPS-GEFS 10 days forecast
 
