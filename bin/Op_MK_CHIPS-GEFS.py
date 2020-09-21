@@ -16,6 +16,8 @@ from datetime import timedelta, datetime
 import sys, getopt,os
 # from pathlib import Path
 from ftplib import FTP
+import warnings
+warnings.filterwarnings("ignore")
 
 def main():  
   
