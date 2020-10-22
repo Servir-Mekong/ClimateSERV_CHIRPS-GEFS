@@ -31,23 +31,23 @@ Run this command to start installing all python dependencies:
 ## Parameters
 
 ClimateServ_CHIPS-GEFS.bat:     
-    -i <DatasetVariable> CHIRPS_GEFS_precip_mean
-    -o <Outfile in format .zip> 
-    -b <boundary[MinLon,Maxlon,Minlat,Maxlat]>
-    -s <EarliestDate>
-    -t <LatestDate>'
-    -n <post_netcdf> 'yes' (optional)
+    -i [DatasetVariable] CHIRPS_GEFS_precip_mean
+    -o [Outfile in format .zip] 
+    -b [boundary MinLon,Maxlon,Minlat,Maxlat]
+    -s [EarliestDate]
+    -t [LatestDate]
+    -n [post_netcdf] 'yes' (optional)
 
 OP_CHIRPS-GEFS_Tiff_NetCDF.bat
-    -o <Outfile> 
-    -b <boundary>
-    -f <days_forecast> 1/16 days
-    -n <postNETCDF>  'yes' (optional)
+    -o [Outfile] 
+    -b [boundary]
+    -f [days_forecast] 1/16 days
+    -n [postNETCDF]  'yes' (optional)
 
 OP_CHIRPS-GEFS_ASCII.bat
-    -o <Outfile> 
-    -b <boundary>
-    -f <days_forecast> 1/16 days
+    -o [Outfile] 
+    -b [boundary]
+    -f [days_forecast] 1/16 days
 
 ## Examples: 
 
