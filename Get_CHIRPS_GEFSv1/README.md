@@ -1,4 +1,4 @@
-# ClimateSERV_CHIRPS-GEFS
+# ClimateSERV_CHIRPS-GEFS version 1.0
 Automatic extraction of CHIRPS-GEFS rainfall forecast data using ClimateSERV 
 
 
