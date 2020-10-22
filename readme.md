@@ -49,7 +49,8 @@ OP_CHIRPS-GEFS_Tiff_NetCDF.bat
     -b [boundary]
     -f [days_forecast] 1/16 days
     -n [postNETCDF]  'yes' (optional)
-
+ ```
+ 
 OP_CHIRPS-GEFS_ASCII.bat
 
 ```sh
