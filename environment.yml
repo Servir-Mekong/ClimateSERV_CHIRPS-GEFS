@@ -1,11 +1,11 @@
-name: GMP-BICO
+name: GPM-BICO
 
 channels:
   - conda-forge
   - defaults
 
 dependencies:
-- python==3.7.3
+- python==3.8.3
 - gdal==2.3.3 
 - numpy==1.16.4  
 - pandas==0.25.0
