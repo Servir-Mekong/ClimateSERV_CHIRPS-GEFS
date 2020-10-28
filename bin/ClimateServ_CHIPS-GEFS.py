@@ -7,7 +7,7 @@ https://pypi.org/project/climateserv/#modal-close
 
 @author: SERVIR Mekong
 @contact: miguel.barajas@adpc.net
-@update: 5 May 2020
+@update: 27 Oct 2020
 
 """
 
@@ -24,8 +24,8 @@ def main():
     print(' tool for the Regional Flood and Drought Management Center (RFDMC) ')
     print('   Mekong River commision  			      					')	
     print('     Developed by SERVIR-MEKONG                              ')
-    print('     version 1.1                                             ')
-    print('     last updated (30/03/2020)                               ')
+    print('     version 2.0                                             ')
+    print('     last updated (27/10/2020)                               ')
     print('     contact: miguel.barajas@adpc.net                        ')
     print('                                                             ')
     print('                                       Please wait   ...     ')
@@ -39,11 +39,11 @@ def main():
    
     # Dates for operational
     EarliestDate = date.today()
-    LatestDate = date.today()  + timedelta(days=10)
+    LatestDate = date.today()  + timedelta(days=15)
 
     SeasonalEnsemble = 'ens01'
     SeasonalVariable = 'Precipitation'
-    Outfile = r'CHIRPS_GEFS10days.zip'    
+    Outfile = r'CHIRPS_GEFS15days.zip'    
     post_netcdf = 'no'
 	
     try:
@@ -102,6 +102,27 @@ def main():
     
         fullCmd = ' '.join(['for %i in (*.tif) do gdal_translate -of', youCanQuoteMe('netcdf'), '%i %i.nc'])
         os.system(fullCmd)
+        
+    elif post_netcdf == 'ascii':
+        print('transforming files to ascii')
+        # Transform to netcdf    
+        def youCanQuoteMe(item):
+            return "\"" + item + "\""
+        
+        Unzip = 'tar -xf ' + str(Outfile)
+        os.system(Unzip)
+        
+        Rasters = [f for f in os.listdir('.')  if f.endswith('.tif')] 
+        
+        for file in Rasters:
+            Date = file.replace('.tif','')
+            [year,month,day] = Date.split('-')  
+            ascii_name = 'forecast_'+ year + month + day + '000000.asci'
+            
+            fullCmd = ' '.join([ 'gdal_translate -of', youCanQuoteMe('AAIGrid'),file,ascii_name])    
+            # fullCmd = ' '.join(['for %i in (*.tif) do gdal_translate -of', youCanQuoteMe('AAIGrid'), '%i %~ni_fews.ascii'])
+            os.system(fullCmd)
+
     else:
         pass
 
