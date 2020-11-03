@@ -15,6 +15,12 @@ import climateserv.api
 from datetime import date, timedelta
 import sys, getopt,os
 from pathlib import Path
+from PIL import Image
+import numpy as np
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 def main():  
   
@@ -31,11 +37,11 @@ def main():
     print('                                       Please wait   ...     ')
 	
 #    PixelRes = 0.05 #degrees
-    [MinLon,MaxLon, MinLat, MaxLat] = [93,110,9,35]
-    boundary= '93,110,9,25' 
+    [MinLon,MaxLon, MinLat, MaxLat] = [89,112,3,36]
+    boundary= '89,112,3,36' 
     DatasetType = 'CHIRPS_GEFS_precip_mean'
     OperationType = 'Download' 
-    
+    PixelRes = 0.05
    
     # Dates for operational
     EarliestDate = date.today()
@@ -63,6 +69,7 @@ def main():
         if opt == "-b" : 
             boundary = arg
             [MinLon,MaxLon, MinLat, MaxLat] =  boundary.split(',')    
+            # [MinLon,MaxLon, MinLat, MaxLat] = [float(MinLon),float(MaxLon), float(MinLat), float(MaxLat)]  
             [MinLon,MaxLon, MinLat, MaxLat] = [float(MinLon),float(MaxLon), float(MinLat), float(MaxLat)]  
         if opt == "-s" :
             Date = arg
@@ -117,11 +124,29 @@ def main():
         for file in Rasters:
             Date = file.replace('.tif','')
             [year,month,day] = Date.split('-')  
-            ascii_name = 'forecast_'+ year + month + day + '000000.asci'
+            ascii_name = 'forecast_'+ year + month + day + '000000.asci'      
             
-            fullCmd = ' '.join([ 'gdal_translate -of', youCanQuoteMe('AAIGrid'),file,ascii_name])    
-            # fullCmd = ' '.join(['for %i in (*.tif) do gdal_translate -of', youCanQuoteMe('AAIGrid'), '%i %~ni_fews.ascii'])
-            os.system(fullCmd)
+            # fullCmd = ' '.join([ 'gdal_translate -of', youCanQuoteMe('AAIGrid'),file,ascii_name,'-projwin', str(MinLon), str(MaxLat), str(MaxLon), str(MinLat),'-tr 0.05 0.05'])    
+            # # fullCmd = ' '.join(['for %i in (*.tif) do gdal_translate -of', youCanQuoteMe('AAIGrid'), '%i %~ni_fews.ascii'])
+            # os.system(fullCmd)
+                        
+            img = Image.open(file)
+            temp = np.array(img)
+            
+            f = StringIO()
+            np.savetxt(f,temp, fmt='%.3f')
+            f.seek(0)
+            fs = f.read().replace('-9999.000', '-9999', -1)
+            f.close()
+            f = open(ascii_name, 'w')
+            f.write("ncols " + str(temp.shape[1]) + "\n")
+            f.write("nrows " + str(temp.shape[0]) + "\n")
+            f.write("xllcorner " + str( MinLon) + "\n")
+            f.write("yllcorner " + str(MinLat) + "\n")
+            f.write("cellsize " + str(PixelRes) + "\n")
+            f.write("NODATA_value " + str(-9999) + "\n")
+            f.write(fs)
+            f.close() 
 
     else:
         pass
