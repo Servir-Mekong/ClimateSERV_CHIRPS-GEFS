@@ -84,6 +84,8 @@ def main():
     EarliestDate = EarliestDate.strftime("%m/%d/%Y")
     LatestDate = LatestDate.strftime("%m/%d/%Y")
     
+    MaxLat = MaxLat -1
+    MaxLon = MaxLon -1
     GeometryCoords = [[MinLon,MaxLat],[MaxLon, MaxLat],
                       [MaxLon, MinLat],[MinLon,MinLat],
                       [MinLon,MaxLat]]
@@ -123,8 +125,8 @@ def main():
         
         for file in Rasters:
             Date = file.replace('.tif','')
-            [year,month,day] = Date.split('-')  
-            ascii_name = 'forecast_'+ year + month + day + '000000.asci'      
+            [year,month,day] = Date.split('-')   
+            ascii_name = 'forecast_{0}{1:02d}{2:02d}000000.asc'.format(int(year),int(month),int(day))    
             
             # fullCmd = ' '.join([ 'gdal_translate -of', youCanQuoteMe('AAIGrid'),file,ascii_name,'-projwin', str(MinLon), str(MaxLat), str(MaxLon), str(MinLat),'-tr 0.05 0.05'])    
             # # fullCmd = ' '.join(['for %i in (*.tif) do gdal_translate -of', youCanQuoteMe('AAIGrid'), '%i %~ni_fews.ascii'])
