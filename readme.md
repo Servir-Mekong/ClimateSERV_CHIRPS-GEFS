@@ -1,10 +1,10 @@
 # Get CHIRPS-GEFS daily forecast data (16 days)
 
- Automatic extraction of daily CHIRPS-GEFS forecasts. Up to 16 days forecast.
+ Automatic extraction of daily CHIRPS-GEFS forecasts. Up to 15 days forecast.
 
    DatasetType: CHIRPS-GEFS_ mean
    spatial resolution: 0.05 degrees
-   Num days forecast:   1 to 16 days
+   Num days forecast:   1 to 15 days
 
 ## Data extraction methods 
 Range-based:
@@ -47,7 +47,7 @@ OP_CHIRPS-GEFS_Tiff_NetCDF.bat
 ```sh
     -o [Outfile] 
     -b [boundary]
-    -f [days_forecast] 1/16 days
+    -f [days_forecast] 1/15 days
     -n [postNETCDF]  'yes' (optional)
  ```
  
@@ -56,7 +56,9 @@ OP_CHIRPS-GEFS_ASCII.bat
 ```sh
     -o [Outfile] 
     -b [boundary]
-    -f [days_forecast] 1/16 days
+    -f [days_forecast] 1/15 days
+    -s [EarliestDate]
+    -t [LatestDate]
  ```
 
 ## Examples: 
