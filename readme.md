@@ -1,4 +1,4 @@
-# Get CHIRPS-GEFS daily forecast data (16 days)
+# Get CHIRPS-GEFS daily forecast data (15 days)
 
  Automatic extraction of daily CHIRPS-GEFS forecasts. Up to 15 days forecast.
 
